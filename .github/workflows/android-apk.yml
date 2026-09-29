@@ -24,20 +24,20 @@ jobs:
       - name: 3. Configurar o Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20'
 
-      - name: 4. Instalar as Dependências
-        run: npm install
+      - name: 4. Instalar as Dependências do Projeto
+        run: npm install --legacy-peer-deps
 
-      - name: 5. Dar Permissão ao Gradle
+      - name: 5. Garantir Permissão de Execução do Gradle
         run: chmod +x android/gradlew
 
       - name: 6. Compilar o APK
         run: |
           cd android
-          ./gradlew assembleDebug
+          ./gradlew assembleDebug --stacktrace
 
-      - name: 7. Enviar o APK para o GitHub
+      - name: 7. Enviar o APK para Download
         uses: actions/upload-artifact@v4
         with:
           name: meu-aplicativo-apk
