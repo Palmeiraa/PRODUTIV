@@ -34,9 +34,9 @@ jobs:
 
       - name: 6. Instalar e Configurar Capacitor Android
         run: |
-          npm install @capacitor/core @capacitor/cli @capacitor/android
+          npm install @capacitor/core @capacitor/cli @capacitor/android --legacy-peer-deps
           npx cap init OmniFlow com.omniflow.app --web-dir dist || true
-          npx cap add android
+          npx cap add android || true
           npx cap sync android
 
       - name: 7. Garantir Permissao no Gradle
