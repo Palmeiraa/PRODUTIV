@@ -39,15 +39,21 @@ jobs:
           npx cap add android || true
           npx cap sync android
 
-      - name: 7. Garantir Permissao no Gradle
+      - name: 7. Resolver Conflito de Duplicacao de Classes Kotlin
+        run: |
+          if [ -f android/build.gradle ]; then
+            echo 'subprojects { configurations.all { resolutionStrategy { force "org.jetbrains.kotlin:kotlin-stdlib:1.9.10" } } }' >> android/build.gradle
+          fi
+
+      - name: 8. Garantir Permissao no Gradle
         run: chmod +x android/gradlew
 
-      - name: 8. Compilar APK Android
+      - name: 9. Compilar APK Android
         run: |
           cd android
-          ./gradlew assembleDebug
+          ./gradlew assembleDebug -Pandroid.kotlinVersion=1.9.10
 
-      - name: 9. Enviar APK para Download
+      - name: 10. Enviar APK para Download
         uses: actions/upload-artifact@v4
         with:
           name: omniflow-app-apk
