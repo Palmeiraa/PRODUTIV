@@ -1,0 +1,245 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    letter-spacing: -0.011em;
+  }
+
+  /* Custom subtle scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(150, 150, 150, 0.25);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(150, 150, 150, 0.45);
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ========================================================
+   Tiptap Rich Text Editor Styling (Bloco de Notas)
+   ======================================================== */
+.ProseMirror {
+  outline: none !important;
+  min-height: 60vh;
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  -webkit-touch-callout: default !important;
+  cursor: text;
+  box-sizing: border-box;
+}
+
+.ProseMirror p {
+  margin-bottom: 0.75rem;
+  line-height: 1.65;
+}
+
+.ProseMirror h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+}
+
+.ProseMirror h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 1.25rem;
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
+}
+
+.ProseMirror h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin-top: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.ProseMirror blockquote {
+  border-left: 3px solid #8b5cf6;
+  padding-left: 1rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #64748b;
+  background-color: rgba(139, 92, 246, 0.05);
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.ProseMirror pre {
+  background-color: #0f172a;
+  color: #f1f5f9;
+  padding: 0.85rem 1.1rem;
+  border-radius: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+.ProseMirror hr {
+  border: none;
+  border-top: 1px solid rgba(150, 150, 150, 0.2);
+  margin: 1.5rem 0;
+}
+
+/* Bullet & Ordered Lists (Restoring list-style reset by Tailwind) */
+.ProseMirror ul, .tiptap ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem !important;
+  margin: 0.5rem 0 !important;
+}
+
+.ProseMirror ol, .tiptap ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5rem !important;
+  margin: 0.5rem 0 !important;
+}
+
+.ProseMirror ul ul, .tiptap ul ul {
+  list-style-type: circle !important;
+}
+
+.ProseMirror ol ol, .tiptap ol ol {
+  list-style-type: lower-alpha !important;
+}
+
+.ProseMirror li, .tiptap li {
+  margin-bottom: 0.3rem !important;
+}
+
+.ProseMirror li > p, .tiptap li > p {
+  margin-bottom: 0.2rem !important;
+}
+
+/* Apple Notes Style Task List / Checkboxes (Must keep list-style: none) */
+.ProseMirror ul[data-type="taskList"], .tiptap ul[data-type="taskList"], ul[data-type="taskList"] {
+  list-style-type: none !important;
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 0.5rem 0 !important;
+}
+
+ul[data-type="taskList"] li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.45rem;
+}
+
+ul[data-type="taskList"] li > label {
+  flex: 0 0 auto;
+  margin-right: 0.65rem;
+  user-select: none;
+  margin-top: 0.2rem;
+  cursor: pointer;
+}
+
+ul[data-type="taskList"] li > label input[type="checkbox"] {
+  appearance: none;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 9999px; /* Circular Apple Notes checkbox */
+  border: 2px solid #94a3b8;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+ul[data-type="taskList"] li > label input[type="checkbox"]:hover {
+  border-color: #10b981;
+}
+
+ul[data-type="taskList"] li > label input[type="checkbox"]:checked {
+  background-color: #10b981; /* Apple / Emerald Green */
+  border-color: #10b981;
+}
+
+ul[data-type="taskList"] li > label input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 1.5px;
+  left: 5px;
+  width: 4px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+ul[data-type="taskList"] li[data-checked="true"] > div {
+  text-decoration: line-through;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+}
+
+ul[data-type="taskList"] li > div {
+  flex: 1 1 auto;
+}
+
+/* Interactive Table Styling */
+.ProseMirror table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+  table-layout: fixed;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(150, 150, 150, 0.25);
+}
+
+.ProseMirror table td,
+.ProseMirror table th {
+  min-width: 1em;
+  border: 1px solid rgba(150, 150, 150, 0.25);
+  padding: 0.6rem 0.85rem;
+  vertical-align: top;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.ProseMirror table th {
+  font-weight: 600;
+  text-align: left;
+  background-color: rgba(150, 150, 150, 0.08);
+}
+
+.ProseMirror table .selectedCell:after {
+  z-index: 2;
+  position: absolute;
+  content: "";
+  left: 0; right: 0; top: 0; bottom: 0;
+  background: rgba(59, 130, 246, 0.15);
+  pointer-events: none;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: #94a3b8;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}

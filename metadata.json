@@ -1,0 +1,6 @@
+{
+  "name": "OmniFlow 365 - Produtividade & Hábitos",
+  "description": "Ecossistema centralizado de produtividade pessoal estilo Notion e Things 3 com tarefas, matriz de Eisenhower, agenda integrada, notas em Markdown/Rich Text, rastreador de hábitos e acompanhamento anual de 365 dias.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
