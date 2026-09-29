@@ -1,4 +1,4 @@
-name: Gerar APK Web/Capacitor
+name: Gerar APK Web Capacitor
 
 on:
   push:
@@ -26,30 +26,27 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: 4. Instalar Dependências do Projeto
+      - name: 4. Instalar Dependencias
         run: npm install --legacy-peer-deps
 
-      - name: 5. Build do Projeto Web e Configuração do Capacitor
+      - name: 5. Compilar Web e Gerar Estrutura Android
         run: |
           npm run build || true
-          npx cap init OmniFlow com.omniflow.app --web-dir dist || true
           npm install @capacitor/core @capacitor/cli @capacitor/android
+          npx cap init OmniFlow com.omniflow.app --web-dir dist || true
           npx cap add android || true
           npx cap sync android || true
 
-      - name: 6. Garantir Permissão no Gradle
+      - name: 6. Permissao de Execucao no Gradle
         run: chmod +x android/gradlew
 
-      - name: 7. Compilar o APK
+      - name: 7. Compilar APK Android
         run: |
           cd android
           ./gradlew assembleDebug
 
-      - name: 8. Enviar o APK para Download
+      - name: 8. Enviar APK para Download
         uses: actions/upload-artifact@v4
         with:
           name: omniflow-app-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
-        with:
-          name: meu-aplicativo-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
