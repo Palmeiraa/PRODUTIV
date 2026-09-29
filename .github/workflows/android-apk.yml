@@ -32,10 +32,10 @@ jobs:
       - name: 5. Compilar Projeto Web
         run: npm run build
 
-      - name: 6. Instalar e Configurar Capacitor Android
+      - name: 6. Criar Configuracao do Capacitor (JSON)
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android --legacy-peer-deps
-          npx cap init OmniFlow com.omniflow.app --web-dir dist || true
+          echo '{"appId": "com.omniflow.app", "appName": "OmniFlow", "webDir": "dist"}' > capacitor.config.json
           npx cap add android || true
           npx cap sync android
 
