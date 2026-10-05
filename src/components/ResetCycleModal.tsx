@@ -63,10 +63,10 @@ export const ResetCycleModal: React.FC<ResetCycleModalProps> = ({
         {step === 1 && (
           <div className="mt-4 space-y-4">
             <div className="p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/40 rounded-xl">
-              <p className="text-sm font-bold text-red-700 dark:text-red-300 leading-relaxed">
-                ATENÇÃO: Deseja realmente zerar o progresso dos 365 dias e recomeçar do Dia 1?
+              <p className="text-base font-bold text-red-700 dark:text-red-300 leading-snug">
+                Deseja zerar seu progresso e recomeçar do Dia 1?
               </p>
-              <p className="text-xs text-red-600/90 dark:text-red-400/90 mt-1 leading-normal">
+              <p className="text-xs text-red-600/90 dark:text-red-400/90 mt-1.5 leading-relaxed">
                 O histórico dos 365 dias será arquivado com segurança e o contador voltará ao Dia 1 com 0% de progresso.
               </p>
             </div>
@@ -77,7 +77,7 @@ export const ResetCycleModal: React.FC<ResetCycleModalProps> = ({
                 <span>O que acontecerá com seus dados:</span>
               </div>
               <ul className="list-disc list-inside space-y-1 pl-1">
-                <li>O ciclo de {activeCycle.year} com {activeCycle.totalDaysCompleted} dias registrados será <strong className="text-neutral-900 dark:text-white">arquivado com segurança no Histórico</strong>.</li>
+                <li>O ciclo atual com seus {activeCycle.totalDaysCompleted} dias registrados será <strong className="text-neutral-900 dark:text-white">arquivado com segurança no Histórico</strong>.</li>
                 <li>Suas tarefas, compromissos na agenda, notas e hábitos cadastrados permanecem intactos.</li>
                 <li>O contador e o heatmap serão reinicializados a partir do <strong className="text-emerald-600 dark:text-emerald-400">Dia 1</strong> para um novo ciclo de produtividade.</li>
               </ul>
@@ -87,14 +87,14 @@ export const ResetCycleModal: React.FC<ResetCycleModalProps> = ({
               <button
                 type="button"
                 onClick={handleClose}
-                className="px-4 py-2 text-xs font-semibold text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-xl transition-colors cursor-pointer"
+                className="min-h-[44px] px-4 py-2 text-xs font-semibold text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-xl transition-colors cursor-pointer"
               >
                 Cancelar
               </button>
               <button
                 type="button"
                 onClick={handleProceedToStep2}
-                className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-red-600 hover:bg-red-700 rounded-xl shadow-xs transition-colors cursor-pointer"
+                className="flex items-center justify-center gap-1.5 min-h-[44px] px-5 py-2.5 text-xs font-bold text-white bg-red-600 hover:bg-red-700 rounded-xl shadow-xs transition-colors cursor-pointer"
               >
                 <span>Avançar para Confirmação</span>
                 <span className="text-[10px] bg-red-800/60 px-1.5 py-0.5 rounded">1/2</span>

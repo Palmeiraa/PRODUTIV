@@ -20,7 +20,7 @@ import {
   YearCycle, 
   Category 
 } from '../types';
-import { getDayOfYear, getTodayDateString, isSameDay } from '../services/storage';
+import { getDayOfYear, getTodayDateString, isSameDay, formatDayOfWeekAndDate } from '../services/storage';
 
 interface DashboardViewProps {
   tasks: Task[];
@@ -85,9 +85,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-xs">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400">
+            <div className="flex items-center gap-2 text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wide">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>ACOMPANHAMENTO DE 365 DIAS · ANO {activeCycle.year}</span>
+              <span>{formatDayOfWeekAndDate(today)} · ANO {activeCycle.year}</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-white mt-1">
               Dia <span className="tabular-nums font-mono text-blue-600 dark:text-blue-400">{currentCycleDay}</span> de {totalYearDays}

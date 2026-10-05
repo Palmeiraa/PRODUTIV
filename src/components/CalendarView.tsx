@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { CalendarEvent, Category, UserProfile } from '../types';
 import { CalendarSyncService } from '../services/calendarSync';
-import { getTodayDateString, formatDateYMD, isSameDay } from '../services/storage';
+import { getTodayDateString, formatDateYMD, isSameDay, parseLocalDate, formatDayOfWeekAndDate } from '../services/storage';
 
 interface CalendarViewProps {
   events: CalendarEvent[];
@@ -86,16 +86,15 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
   // Helper formatting
   const monthName = currentDate.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
 
-  // Get week days for the week view (Monday to Sunday)
+  // Get week days for the week view (Sunday to Saturday)
   const getWeekDays = (baseDate: Date) => {
-    const startOfWeek = new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate());
-    const day = startOfWeek.getDay();
-    const diff = startOfWeek.getDate() - day + (day === 0 ? -6 : 1); // Monday as first day
-    startOfWeek.setDate(diff);
+    const d = parseLocalDate(baseDate);
+    const day = d.getDay(); // 0 is Sunday
+    const sunday = new Date(d.getFullYear(), d.getMonth(), d.getDate() - day, 12, 0, 0);
 
     const week: Date[] = [];
     for (let i = 0; i < 7; i++) {
-      const nextDay = new Date(startOfWeek.getFullYear(), startOfWeek.getMonth(), startOfWeek.getDate() + i);
+      const nextDay = new Date(sunday.getFullYear(), sunday.getMonth(), sunday.getDate() + i, 12, 0, 0);
       week.push(nextDay);
     }
     return week;
@@ -132,11 +131,11 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
       {/* Header & Controls */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white capitalize">
-            {monthName}
+          <h2 className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">
+            Sua Agenda
           </h2>
-          <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
-            Agenda inteligente integrada com Google Calendar e Apple Calendar
+          <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5 capitalize">
+            {monthName} · Google & Apple Calendar
           </p>
         </div>
 
@@ -145,19 +144,19 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
           <div className="flex items-center bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-1">
             <button
               onClick={prevPeriod}
-              className="p-1 text-neutral-500 hover:text-neutral-900 dark:hover:text-white rounded-lg cursor-pointer"
+              className="flex items-center justify-center min-h-[40px] min-w-[40px] text-neutral-500 hover:text-neutral-900 dark:hover:text-white rounded-lg cursor-pointer"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={resetToToday}
-              className="px-2.5 py-1 text-xs font-semibold text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 cursor-pointer"
+              className="min-h-[40px] px-3 py-1 text-xs font-semibold text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 cursor-pointer"
             >
               Hoje
             </button>
             <button
               onClick={nextPeriod}
-              className="p-1 text-neutral-500 hover:text-neutral-900 dark:hover:text-white rounded-lg cursor-pointer"
+              className="flex items-center justify-center min-h-[40px] min-w-[40px] text-neutral-500 hover:text-neutral-900 dark:hover:text-white rounded-lg cursor-pointer"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -167,7 +166,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
           <div className="flex items-center p-1 bg-neutral-100 dark:bg-neutral-800 rounded-xl text-xs font-medium">
             <button
               onClick={() => setCalendarMode('month')}
-              className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
+              className={`min-h-[40px] px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
                 calendarMode === 'month'
                   ? 'bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white shadow-xs font-semibold'
                   : 'text-neutral-500'
@@ -177,7 +176,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             </button>
             <button
               onClick={() => setCalendarMode('week')}
-              className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
+              className={`min-h-[40px] px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
                 calendarMode === 'week'
                   ? 'bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white shadow-xs font-semibold'
                   : 'text-neutral-500'
@@ -187,7 +186,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             </button>
             <button
               onClick={() => setCalendarMode('day')}
-              className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
+              className={`min-h-[40px] px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
                 calendarMode === 'day'
                   ? 'bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white shadow-xs font-semibold'
                   : 'text-neutral-500'
@@ -199,10 +198,10 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
 
           <button
             onClick={onAddEvent}
-            className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs transition-colors cursor-pointer"
+            className="flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 active:scale-95 rounded-xl shadow-xs transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" />
-            <span>Novo Evento</span>
+            <span>+ Novo Evento</span>
           </button>
         </div>
       </div>
@@ -292,8 +291,8 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                   {/* Events list inside the day column */}
                   <div className="mt-2.5 space-y-2 flex-1">
                     {dayEvents.length === 0 ? (
-                      <span className="text-[10px] text-neutral-400 block pt-4 text-center">
-                        Sem eventos
+                      <span className="text-[11px] text-neutral-400 block pt-4 text-center leading-tight">
+                        Nenhum compromisso para este dia
                       </span>
                     ) : (
                       dayEvents.map((ev) => {
@@ -349,17 +348,17 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
         <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-xs max-w-3xl mx-auto">
           <div className="flex items-center justify-between pb-4 border-b border-neutral-100 dark:border-neutral-800">
             <div>
-              <h3 className="text-base font-bold text-neutral-900 dark:text-white">
-                {currentDate.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}
+              <h3 className="text-base font-bold text-neutral-900 dark:text-white uppercase tracking-wide">
+                {formatDayOfWeekAndDate(currentDate)}
               </h3>
               <p className="text-xs text-neutral-500">Compromissos agendados para este dia</p>
             </div>
             <button
               onClick={onAddEvent}
-              className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-white bg-blue-600 rounded-lg"
+              className="flex items-center justify-center gap-1.5 min-h-[44px] px-3.5 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all cursor-pointer"
             >
               <Plus className="w-3.5 h-3.5" />
-              <span>Adicionar</span>
+              <span>+ Novo Evento</span>
             </button>
           </div>
 
@@ -367,97 +366,141 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             {events
               .filter((e) => isSameDay(e.startTime, currentDate))
               .sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime())
-              .map((ev) => {
-                const startStr = new Date(ev.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                const endStr = new Date(ev.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                return (
-                  <div
-                    key={ev.id}
-                    className="p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/40 flex items-center justify-between gap-4 transition-colors"
-                  >
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-semibold text-neutral-900 dark:text-white">{ev.title}</span>
-                        {getSourceBadge(ev.externalSource)}
-                      </div>
-                      <div className="flex items-center gap-3 mt-1.5 text-xs text-neutral-500">
-                        <span className="flex items-center gap-1 font-mono">
-                          <Clock className="w-3.5 h-3.5" />
-                          {startStr} - {endStr}
-                        </span>
-                        {ev.location && (
-                          <span className="flex items-center gap-1">
-                            <MapPin className="w-3.5 h-3.5" />
-                            {ev.location}
-                          </span>
-                        )}
-                      </div>
-                    </div>
+              .length === 0 ? (
+                <div className="py-12 text-center text-xs text-neutral-400 flex flex-col items-center justify-center gap-2">
+                  <CalendarIcon className="w-8 h-8 opacity-40" />
+                  <span className="text-sm font-medium">Nenhum compromisso para este dia</span>
+                </div>
+              ) : (
+                events
+                  .filter((e) => isSameDay(e.startTime, currentDate))
+                  .sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime())
+                  .map((ev) => {
+                    const startStr = new Date(ev.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    const endStr = new Date(ev.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    return (
+                      <div
+                        key={ev.id}
+                        className="p-3.5 sm:p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 transition-colors min-h-[52px]"
+                      >
+                        <div className="space-y-1.5 min-w-0">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="text-sm font-semibold text-neutral-900 dark:text-white break-words">
+                              {ev.title}
+                            </span>
+                            {getSourceBadge(ev.externalSource)}
+                          </div>
+                          <div className="flex flex-wrap items-center gap-3 text-xs text-neutral-500">
+                            <span className="flex items-center gap-1 font-mono">
+                              <Clock className="w-3.5 h-3.5 text-neutral-400" />
+                              {startStr} - {endStr}
+                            </span>
+                            {ev.location && (
+                              <span className="flex items-center gap-1">
+                                <MapPin className="w-3.5 h-3.5 text-neutral-400" />
+                                <span className="truncate max-w-[200px]">{ev.location}</span>
+                              </span>
+                            )}
+                          </div>
+                        </div>
 
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => onTriggerEventReminder(ev)}
-                        title="Simular Lembrete"
-                        className="p-2 text-neutral-400 hover:text-blue-500 rounded-lg"
-                      >
-                        <Bell className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => onDeleteEvent(ev.id)}
-                        title="Excluir"
-                        className="p-2 text-neutral-400 hover:text-red-500 rounded-lg"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
+                        <div className="flex items-center justify-end gap-1 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-neutral-100 dark:border-neutral-800/60">
+                          <button
+                            onClick={() => onTriggerEventReminder(ev)}
+                            title="Simular Lembrete"
+                            className="flex items-center justify-center min-h-[44px] min-w-[44px] text-neutral-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-xl cursor-pointer"
+                          >
+                            <Bell className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => onDeleteEvent(ev.id)}
+                            title="Excluir"
+                            className="flex items-center justify-center min-h-[44px] min-w-[44px] text-neutral-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-xl cursor-pointer"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })
+              )}
           </div>
         </div>
       )}
 
       {/* MONTH VIEW */}
-      {calendarMode === 'month' && (
-        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-xs">
-          <div className="text-center py-4">
-            <p className="text-xs text-neutral-500 mb-4">
-              Visão Mensal com contagem de eventos por dia.
-            </p>
-            <div className="grid grid-cols-7 gap-2 text-center text-xs font-semibold text-neutral-400 pb-2">
-              <span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span>
-            </div>
-            <div className="grid grid-cols-7 gap-2">
-              {Array.from({ length: 31 }).map((_, idx) => {
-                const dayNum = idx + 1;
-                const cellDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), dayNum);
-                const count = events.filter((e) => isSameDay(e.startTime, cellDate)).length;
-                const isToday = isSameDay(cellDate, todayStr);
+      {calendarMode === 'month' && (() => {
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const firstDayOfMonth = new Date(year, month, 1, 12, 0, 0).getDay(); // 0 for Sunday
+        const paddingCount = firstDayOfMonth;
 
-                return (
-                  <div
-                    key={dayNum}
-                    className={`h-16 p-1.5 rounded-xl border flex flex-col justify-between text-left transition-colors ${
-                      isToday
-                        ? 'border-blue-500 bg-blue-50/20 dark:bg-blue-950/20'
-                        : 'border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-850'
-                    }`}
-                  >
-                    <span className={`text-xs font-mono font-bold ${isToday ? 'text-blue-600' : 'text-neutral-700 dark:text-neutral-300'}`}>
-                      {dayNum}
-                    </span>
-                    {count > 0 && (
-                      <span className="text-[10px] text-blue-600 dark:text-blue-400 font-semibold truncate">
-                        {count} {count === 1 ? 'evento' : 'eventos'}
-                      </span>
-                    )}
-                  </div>
-                );
-              })}
+        return (
+          <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-4 sm:p-6 shadow-xs">
+            <div className="text-center py-2">
+              <p className="text-xs text-neutral-500 mb-4">
+                Toque em qualquer dia para ver os compromissos detalhados.
+              </p>
+              <div className="grid grid-cols-7 gap-1 sm:gap-2 text-center text-xs font-bold text-neutral-400 pb-2">
+                <span className="text-red-500 dark:text-red-400">Dom</span>
+                <span>Seg</span>
+                <span>Ter</span>
+                <span>Qua</span>
+                <span>Qui</span>
+                <span>Sex</span>
+                <span className="text-blue-500 dark:text-blue-400">Sáb</span>
+              </div>
+              <div className="grid grid-cols-7 gap-1 sm:gap-2">
+                {Array.from({ length: paddingCount }).map((_, idx) => (
+                  <div key={`pad-${idx}`} className="h-16 sm:h-20 rounded-xl bg-neutral-50/40 dark:bg-neutral-900/30 border border-dashed border-neutral-100 dark:border-neutral-800/40" />
+                ))}
+                {Array.from({ length: daysInMonth }).map((_, idx) => {
+                  const dayNum = idx + 1;
+                  const cellDate = new Date(year, month, dayNum, 12, 0, 0);
+                  const count = events.filter((e) => isSameDay(e.startTime, cellDate)).length;
+                  const isToday = isSameDay(cellDate, todayStr);
+                  const isSelected = isSameDay(cellDate, currentDate);
+
+                  return (
+                    <button
+                      key={dayNum}
+                      type="button"
+                      onClick={() => {
+                        setCurrentDate(cellDate);
+                        setCalendarMode('day');
+                      }}
+                      className={`h-16 sm:h-20 p-1.5 sm:p-2 rounded-xl border flex flex-col justify-between text-left transition-all cursor-pointer ${
+                        isSelected
+                          ? 'border-blue-600 bg-blue-50/50 dark:bg-blue-950/40 ring-2 ring-blue-500/20'
+                          : isToday
+                          ? 'border-blue-400 bg-blue-50/20 dark:bg-blue-950/20'
+                          : 'border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-850'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between w-full">
+                        <span className={`text-xs font-mono font-bold ${
+                          isToday ? 'text-blue-600 dark:text-blue-400 underline underline-offset-2' : 'text-neutral-700 dark:text-neutral-300'
+                        }`}>
+                          {dayNum}
+                        </span>
+                        {isToday && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                        )}
+                      </div>
+                      {count > 0 && (
+                        <span className="text-[10px] text-blue-600 dark:text-blue-400 font-semibold truncate bg-blue-50 dark:bg-blue-950/60 px-1 py-0.5 rounded">
+                          {count} {count === 1 ? 'evento' : 'eventos'}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
     </div>
   );

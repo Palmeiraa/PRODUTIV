@@ -90,12 +90,12 @@ export const Header: React.FC<HeaderProps> = ({
         </nav>
 
         {/* Zone 3: 1-2 primary actions */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {/* Notification Quick Tester trigger */}
           <button
             onClick={onTriggerNotificationTest}
             title="Simular Lembrete Pop-up"
-            className="p-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-900 rounded-lg transition-colors cursor-pointer"
+            className="flex items-center justify-center min-h-[44px] min-w-[44px] text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-900 rounded-xl transition-colors cursor-pointer"
             aria-label="Simular Notificação"
           >
             <Bell className="w-4 h-4" />
@@ -105,7 +105,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             onClick={onToggleTheme}
             title={isDarkMode ? 'Mudar para tema claro' : 'Mudar para tema escuro'}
-            className="p-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-900 rounded-lg transition-colors cursor-pointer"
+            className="flex items-center justify-center min-h-[44px] min-w-[44px] text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-900 rounded-xl transition-colors cursor-pointer"
             aria-label="Alternar Tema"
           >
             {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
@@ -114,29 +114,12 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Quick Create Action */}
           <button
             onClick={onOpenQuickAdd}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs sm:text-sm font-medium text-white bg-neutral-900 hover:bg-neutral-800 dark:bg-neutral-100 dark:text-neutral-950 dark:hover:bg-white rounded-lg shadow-sm transition-colors whitespace-nowrap cursor-pointer"
+            className="flex items-center justify-center gap-1.5 min-h-[44px] px-3.5 sm:px-4 text-xs sm:text-sm font-semibold text-white bg-neutral-900 hover:bg-neutral-800 dark:bg-neutral-100 dark:text-neutral-950 dark:hover:bg-white rounded-xl shadow-sm transition-transform active:scale-95 whitespace-nowrap cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span className="hidden sm:inline">Criar</span>
           </button>
         </div>
-      </div>
-
-      {/* Mobile Secondary Scrollable Tab Bar */}
-      <div className="md:hidden flex items-center gap-1 overflow-x-auto px-4 py-2 border-t border-neutral-100 dark:border-neutral-900 scrollbar-none">
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => onSelectTab(item.id)}
-            className={`px-2.5 py-1 text-xs font-medium rounded-md whitespace-nowrap shrink-0 ${
-              activeTab === item.id
-                ? 'text-neutral-900 dark:text-white bg-neutral-200/80 dark:bg-neutral-800'
-                : 'text-neutral-500 dark:text-neutral-400'
-            }`}
-          >
-            {item.label}
-          </button>
-        ))}
       </div>
     </header>
   );

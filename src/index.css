@@ -32,6 +32,18 @@
   font-variant-numeric: tabular-nums;
 }
 
+@layer utilities {
+  .pb-safe {
+    padding-bottom: max(env(safe-area-inset-bottom, 0px), 0.75rem);
+  }
+  .pt-safe {
+    padding-top: max(env(safe-area-inset-top, 0px), 0.75rem);
+  }
+  .mb-safe {
+    margin-bottom: max(env(safe-area-inset-bottom, 0px), 0.75rem);
+  }
+}
+
 /* ========================================================
    Tiptap Rich Text Editor Styling (Bloco de Notas)
    ======================================================== */

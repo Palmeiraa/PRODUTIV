@@ -11,6 +11,7 @@ import { NotesView } from './components/NotesView';
 import { Year365View } from './components/Year365View';
 import { HabitsView } from './components/HabitsView';
 import { ArchitectureView } from './components/ArchitectureView';
+import { BottomNav } from './components/BottomNav';
 
 import { 
   UserProfile, 
@@ -514,7 +515,7 @@ export default function App() {
       />
 
       {/* Main Content Viewport */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-28 md:pb-12">
         {activeTab === 'dashboard' && (
           <DashboardView
             tasks={tasks}
@@ -596,6 +597,9 @@ export default function App() {
           />
         )}
       </main>
+
+      {/* Mobile Ergonomic Bottom Navigation Bar */}
+      <BottomNav activeTab={activeTab} onSelectTab={setActiveTab} />
 
       {/* Pop-up Scheduled Reminders & Toasts */}
       <NotificationPopup

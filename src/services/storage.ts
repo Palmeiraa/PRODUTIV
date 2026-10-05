@@ -47,6 +47,50 @@ export function formatDateYMD(d: Date): string {
   return `${year}-${month}-${day}`;
 }
 
+export function parseLocalDate(val?: string | Date): Date {
+  if (!val) return new Date();
+  if (val instanceof Date) return val;
+  const str = String(val).trim();
+  const dateOnly = str.includes('T') ? str.split('T')[0] : str.slice(0, 10);
+  const parts = dateOnly.split('-').map(Number);
+  if (parts.length === 3 && !isNaN(parts[0]) && !isNaN(parts[1]) && !isNaN(parts[2])) {
+    return new Date(parts[0], parts[1] - 1, parts[2], 12, 0, 0); // Meio-dia evita desvios de timezone
+  }
+  return new Date(val);
+}
+
+export function formatDayOfWeekAndDate(dateVal: string | Date): string {
+  const d = parseLocalDate(dateVal);
+  const weekdayNames = [
+    'DOMINGO',
+    'SEGUNDA-FEIRA',
+    'TERÇA-FEIRA',
+    'QUARTA-FEIRA',
+    'QUINTA-FEIRA',
+    'SEXTA-FEIRA',
+    'SÁBADO'
+  ];
+  const monthNames = [
+    'JANEIRO',
+    'FEVEREIRO',
+    'MARÇO',
+    'ABRIL',
+    'MAIO',
+    'JUNHO',
+    'JULHO',
+    'AGOSTO',
+    'SETEMBRO',
+    'OUTUBRO',
+    'NOVEMBRO',
+    'DEZEMBRO'
+  ];
+
+  const weekday = weekdayNames[d.getDay()];
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = monthNames[d.getMonth()];
+  return `${weekday}, ${day} DE ${month}`;
+}
+
 export function isSameDay(date1?: string | Date, date2?: string | Date): boolean {
   if (!date1 || !date2) return false;
   

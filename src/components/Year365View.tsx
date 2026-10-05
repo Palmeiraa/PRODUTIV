@@ -133,20 +133,20 @@ export const Year365View: React.FC<Year365ViewProps> = ({
             <span>SISTEMA DE ACOMPANHAMENTO ANUAL · CICLO ATIVO</span>
           </div>
           <h2 className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white mt-1">
-            Progresso de 365 Dias ({activeCycle.year})
+            Seu Ano em Progresso
           </h2>
-          <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
-            Acompanhamento diário visual de produtividade, consistência e hábitos acumulados
+          <p className="text-sm font-medium text-neutral-600 dark:text-neutral-300 mt-0.5">
+            Dia {currentDay} de 365 • {yearProgressPercent}% concluído
           </p>
         </div>
 
         {/* Safety Reset Button */}
         <button
           onClick={onOpenResetModal}
-          className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 hover:border-red-300 dark:hover:border-red-900/60 hover:text-red-600 dark:hover:text-red-400 rounded-xl shadow-2xs transition-colors cursor-pointer"
+          className="flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 hover:border-red-300 dark:hover:border-red-900/60 hover:text-red-600 dark:hover:text-red-400 rounded-xl shadow-2xs transition-colors cursor-pointer"
         >
-          <RotateCcw className="w-3.5 h-3.5 text-red-500" />
-          <span>Resetar Ciclo de 365 Dias</span>
+          <RotateCcw className="w-4 h-4 text-red-500" />
+          <span>Resetar Ciclo do Ano</span>
         </button>
       </div>
 
@@ -344,10 +344,10 @@ export const Year365View: React.FC<Year365ViewProps> = ({
         <button
           type="button"
           onClick={onOpenResetModal}
-          className="flex items-center justify-center gap-2 px-5 py-3 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer shrink-0"
+          className="flex items-center justify-center gap-2 min-h-[44px] px-5 py-3 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer shrink-0"
         >
           <RotateCcw className="w-4 h-4" />
-          <span>Resetar Ciclo dos 365 Dias</span>
+          <span>Resetar Ciclo do Ano</span>
         </button>
       </div>
 
