@@ -45,22 +45,22 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="sticky top-0 z-40 w-full bg-white/95 dark:bg-neutral-950/95 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
         
         {/* Zone 1: Single text element wordmark */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0 shrink-0">
           <button 
             onClick={() => onSelectTab('dashboard')}
             className="text-left group cursor-pointer focus:outline-none"
           >
-            <span className="text-lg font-bold tracking-tight text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block"></span>
-              OmniFlow <span className="font-light text-neutral-500 dark:text-neutral-400">365</span>
+            <span className="text-base sm:text-lg font-bold tracking-tight text-neutral-900 dark:text-neutral-100 flex items-center gap-2 truncate">
+              <span className="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block shrink-0"></span>
+              <span>OmniFlow <span className="font-light text-neutral-500 dark:text-neutral-400">365</span></span>
             </span>
           </button>
 
           {/* Quiet Offline-First indicator */}
-          <div className="hidden lg:flex items-center gap-1.5 text-xs text-neutral-400 dark:text-neutral-500 ml-2">
+          <div className="hidden lg:flex items-center gap-1.5 text-xs text-neutral-400 dark:text-neutral-500 ml-2 shrink-0">
             <span aria-hidden="true">·</span>
             <span className="flex items-center gap-1">
               <WifiOff className="w-3 h-3 text-emerald-500" />
@@ -90,12 +90,12 @@ export const Header: React.FC<HeaderProps> = ({
         </nav>
 
         {/* Zone 3: 1-2 primary actions */}
-        <div className="flex items-center gap-1.5 sm:gap-2">
+        <div className="flex items-center gap-1 sm:gap-2 shrink-0">
           {/* Notification Quick Tester trigger */}
           <button
             onClick={onTriggerNotificationTest}
             title="Simular Lembrete Pop-up"
-            className="flex items-center justify-center min-h-[44px] min-w-[44px] text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-900 rounded-xl transition-colors cursor-pointer"
+            className="flex items-center justify-center w-10 h-10 min-w-[40px] text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-900 rounded-xl transition-colors cursor-pointer shrink-0"
             aria-label="Simular Notificação"
           >
             <Bell className="w-4 h-4" />
@@ -105,7 +105,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             onClick={onToggleTheme}
             title={isDarkMode ? 'Mudar para tema claro' : 'Mudar para tema escuro'}
-            className="flex items-center justify-center min-h-[44px] min-w-[44px] text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-900 rounded-xl transition-colors cursor-pointer"
+            className="flex items-center justify-center w-10 h-10 min-w-[40px] text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-900 rounded-xl transition-colors cursor-pointer shrink-0"
             aria-label="Alternar Tema"
           >
             {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
@@ -114,7 +114,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Quick Create Action */}
           <button
             onClick={onOpenQuickAdd}
-            className="flex items-center justify-center gap-1.5 min-h-[44px] px-3.5 sm:px-4 text-xs sm:text-sm font-semibold text-white bg-neutral-900 hover:bg-neutral-800 dark:bg-neutral-100 dark:text-neutral-950 dark:hover:bg-white rounded-xl shadow-sm transition-transform active:scale-95 whitespace-nowrap cursor-pointer"
+            className="flex items-center justify-center gap-1.5 h-10 px-3 sm:px-4 text-xs sm:text-sm font-semibold text-white bg-neutral-900 hover:bg-neutral-800 dark:bg-neutral-100 dark:text-neutral-950 dark:hover:bg-white rounded-xl shadow-sm transition-transform active:scale-95 whitespace-nowrap cursor-pointer shrink-0"
           >
             <Plus className="w-4 h-4" />
             <span className="hidden sm:inline">Criar</span>

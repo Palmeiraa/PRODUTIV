@@ -122,39 +122,39 @@ export const TasksView: React.FC<TasksViewProps> = ({
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
           {/* Segmented View Mode Switcher */}
-          <div className="flex items-center p-1 bg-neutral-100 dark:bg-neutral-800 rounded-xl">
+          <div className="flex items-center p-1 bg-neutral-100 dark:bg-neutral-800 rounded-xl w-full sm:w-auto">
             <button
               onClick={() => setViewMode('eisenhower')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors cursor-pointer ${
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg transition-colors cursor-pointer min-h-[42px] ${
                 viewMode === 'eisenhower'
                   ? 'bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white shadow-xs'
                   : 'text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
               }`}
             >
-              <Grid className="w-3.5 h-3.5 text-blue-500" />
-              <span>Matriz Eisenhower</span>
+              <Grid className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+              <span className="whitespace-nowrap">Matriz Eisenhower</span>
             </button>
             <button
               onClick={() => setViewMode('list')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors cursor-pointer ${
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg transition-colors cursor-pointer min-h-[42px] ${
                 viewMode === 'list'
                   ? 'bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white shadow-xs'
                   : 'text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
               }`}
             >
-              <List className="w-3.5 h-3.5 text-blue-500" />
-              <span>Lista Inteligente</span>
+              <List className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+              <span className="whitespace-nowrap">Lista Inteligente</span>
             </button>
           </div>
 
           <button
             onClick={onOpenQuickAdd}
-            className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs transition-colors cursor-pointer"
+            className="w-full sm:w-auto flex items-center justify-center gap-1.5 min-h-[42px] px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 active:scale-95 rounded-xl shadow-xs transition-all cursor-pointer whitespace-nowrap"
           >
             <Plus className="w-4 h-4" />
-            <span>Nova Tarefa</span>
+            <span>+ Nova Tarefa</span>
           </button>
         </div>
       </div>

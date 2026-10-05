@@ -31,7 +31,7 @@ export const NotificationPopup: React.FC<NotificationPopupProps> = ({
   if (reminders.length === 0) return null;
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none px-4 sm:px-0">
+    <div className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none px-2 sm:px-0">
       <AnimatePresence>
         {reminders.map((reminder) => {
           const isTask = reminder.type === 'task';
