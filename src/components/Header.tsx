@@ -44,7 +44,7 @@ export const Header: React.FC<HeaderProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/95 dark:bg-neutral-950/95 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800">
+    <header className="sticky top-0 z-40 w-full bg-white/95 dark:bg-neutral-950/95 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800 pt-12 sm:pt-0 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
         
         {/* Zone 1: Single text element wordmark */}
@@ -89,8 +89,8 @@ export const Header: React.FC<HeaderProps> = ({
           })}
         </nav>
 
-        {/* Zone 3: 1-2 primary actions */}
-        <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+        {/* Zone 3: Integrated top actions inline beside each other */}
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           {/* Notification Quick Tester trigger */}
           <button
             onClick={onTriggerNotificationTest}
@@ -111,10 +111,11 @@ export const Header: React.FC<HeaderProps> = ({
             {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
           </button>
 
-          {/* Quick Create Action */}
+          {/* Quick Create Action integrated right in the header bar */}
           <button
             onClick={onOpenQuickAdd}
-            className="flex items-center justify-center gap-1.5 h-10 px-3 sm:px-4 text-xs sm:text-sm font-semibold text-white bg-neutral-900 hover:bg-neutral-800 dark:bg-neutral-100 dark:text-neutral-950 dark:hover:bg-white rounded-xl shadow-sm transition-transform active:scale-95 whitespace-nowrap cursor-pointer shrink-0"
+            title="Criar Rápido (+)"
+            className="flex items-center justify-center gap-1.5 h-10 px-3.5 sm:px-4 text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 active:scale-95 rounded-xl shadow-xs transition-all whitespace-nowrap cursor-pointer shrink-0"
           >
             <Plus className="w-4 h-4" />
             <span className="hidden sm:inline">Criar</span>

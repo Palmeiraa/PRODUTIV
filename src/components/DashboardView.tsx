@@ -98,25 +98,25 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
 
           {/* Quick Notification Simulations & 365 View Link */}
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={onTriggerMorningTest}
-              className="px-3 py-1.5 text-xs font-medium text-neutral-700 dark:text-neutral-300 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 rounded-lg transition-colors cursor-pointer"
+              className="py-2.5 px-4 text-sm font-medium text-neutral-700 dark:text-neutral-300 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 rounded-xl transition-colors cursor-pointer"
             >
               Simular Digest 08:00
             </button>
             <button
               onClick={onTriggerNightTest}
-              className="px-3 py-1.5 text-xs font-medium text-neutral-700 dark:text-neutral-300 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 rounded-lg transition-colors cursor-pointer"
+              className="py-2.5 px-4 text-sm font-medium text-neutral-700 dark:text-neutral-300 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 rounded-xl transition-colors cursor-pointer"
             >
               Simular Check-in 21:00
             </button>
             <button
               onClick={() => onNavigateTab('year365')}
-              className="flex items-center gap-1 px-3.5 py-1.5 text-xs font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 py-2.5 px-4 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs transition-colors cursor-pointer"
             >
               <span>Ver Heatmap 365</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -141,26 +141,26 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       <div className="flex flex-wrap items-center gap-3">
         <button
           onClick={onOpenQuickAdd}
-          className="flex items-center gap-2 px-4 py-2 bg-neutral-900 hover:bg-neutral-800 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-white text-white rounded-xl text-xs font-semibold shadow-xs transition-colors cursor-pointer"
+          className="flex items-center justify-center gap-2 py-2.5 px-4 bg-neutral-900 hover:bg-neutral-800 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-white text-white rounded-xl text-sm font-semibold shadow-xs transition-all active:scale-95 cursor-pointer"
         >
-          <Plus className="w-3.5 h-3.5" />
-          <span>Criar Rápido (Tarefa, Agenda, Hábito, Nota)</span>
+          <Plus className="w-4 h-4" />
+          <span>+ Criar Rápido (Tarefa, Agenda, Hábito, Nota)</span>
         </button>
         <button
           onClick={() => onNavigateTab('tasks')}
-          className="px-3.5 py-2 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 text-neutral-700 dark:text-neutral-300 rounded-xl text-xs font-medium transition-colors cursor-pointer"
+          className="py-2.5 px-4 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 text-neutral-700 dark:text-neutral-300 rounded-xl text-sm font-medium transition-colors cursor-pointer"
         >
           Matriz de Eisenhower
         </button>
         <button
           onClick={() => onNavigateTab('calendar')}
-          className="px-3.5 py-2 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 text-neutral-700 dark:text-neutral-300 rounded-xl text-xs font-medium transition-colors cursor-pointer"
+          className="py-2.5 px-4 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 text-neutral-700 dark:text-neutral-300 rounded-xl text-sm font-medium transition-colors cursor-pointer"
         >
           Sincronização de Calendários
         </button>
         <button
           onClick={() => onNavigateTab('notes')}
-          className="px-3.5 py-2 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 text-neutral-700 dark:text-neutral-300 rounded-xl text-xs font-medium transition-colors cursor-pointer"
+          className="py-2.5 px-4 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 text-neutral-700 dark:text-neutral-300 rounded-xl text-sm font-medium transition-colors cursor-pointer"
         >
           Bloco de Notas
         </button>
